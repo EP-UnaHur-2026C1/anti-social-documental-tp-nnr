@@ -1,15 +1,23 @@
-console.log("UnaHur - Anti-Social net");
-
 const express = require("express");
 const dotenv = require("dotenv");
-const conectarDb = require("./config/db");
-
 dotenv.config();
 
+const conectarDb = require("./config/db");
+
+const tagRoutes = require('./routes/tagToutes');
+const notFound = require('./middlewares/notFound');
+
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+// Rutas
+app.use('/tag', tagRoutes);
+
+//Middleware de error
+app.use(notFound);
+
+const port = process.env.PORT || 3000;
 
 conectarDb();
 
