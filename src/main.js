@@ -8,14 +8,13 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+const usuarioRoutes = require('./routes/usuario.routes')
 
 app.use(express.json());
 
 conectarDb();
 
-app.get("/", (req, res) => {
-  res.send("API funcionando");
-});
+app.use('/', usuarioRoutes)
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en puerto ${port}`);
