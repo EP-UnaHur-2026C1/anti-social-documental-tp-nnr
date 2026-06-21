@@ -1,22 +1,39 @@
-console.log("UnaHur - Anti-Social net");
+const dotenv = require("dotenv");
 
 const express = require("express");
-const dotenv = require("dotenv");
+
 const conectarDb = require("./config/db");
 const postRoutes = require('./routes/post.routes');
 dotenv.config();
 
+const commentRoutes = require('./routes/commentRoutes');
+//const tagRoutes = require('./routes/tagToutes');
+
+const notFound = require('./middlewares/notFound');
+
+
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/api/posts', postRoutes);
+
+//Rutas
+app.use('/comment', commentRoutes);
+//app.use('/tag', tagRoutes);
+
+//Middleware de error
+app.use(notFound);
+
+
+const port = process.env.PORT || 3000;
 
 conectarDb();
 
 app.get("/", (req, res) => {
   res.send("API funcionando");
 });
+
+app.use(notFound);
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en puerto ${port}`);
