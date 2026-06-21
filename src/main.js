@@ -12,14 +12,13 @@ const commentRoutes = require('./routes/commentRoutes');
 
 const notFound = require('./middlewares/notFound');
 
-
-
-
-
 const tagRoutes = require('./routes/tagToutes');
 
 
 const app = express();
+const port = process.env.PORT || 3000;
+
+conectarDb();
 
 app.use(express.json());
 app.use('/api/posts', postRoutes);
@@ -31,22 +30,14 @@ app.use('/comment', commentRoutes);
 //Middleware de error
 app.use(notFound);
 
-
-const port = process.env.PORT || 3000;
-
 // Rutas
 app.use('/tag', tagRoutes);
 
 //Middleware de error
 app.use(notFound);
 
-const port = process.env.PORT || 3000;
 
-conectarDb();
-
-app.get("/", (req, res) => {
-  res.send("API funcionando");
-});
+app.use('/', usuarioRoutes)
 
 app.use(notFound);
 
