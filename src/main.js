@@ -1,3 +1,4 @@
+
 const dotenv = require("dotenv");
 
 const express = require("express");
@@ -12,6 +13,12 @@ const commentRoutes = require('./routes/commentRoutes');
 const notFound = require('./middlewares/notFound');
 
 
+
+
+
+const tagRoutes = require('./routes/tagToutes');
+
+
 const app = express();
 
 app.use(express.json());
@@ -24,6 +31,14 @@ app.use('/comment', commentRoutes);
 //Middleware de error
 app.use(notFound);
 
+
+const port = process.env.PORT || 3000;
+
+// Rutas
+app.use('/tag', tagRoutes);
+
+//Middleware de error
+app.use(notFound);
 
 const port = process.env.PORT || 3000;
 
