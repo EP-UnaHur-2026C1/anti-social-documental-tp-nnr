@@ -13,14 +13,17 @@ const {
     removeImagesFromPost,
     reactToPost} = require('../controllers/post.controller');
 
+    const validarBodyPost = require('../middlewares/validatePost');
+    const validateObjectId = require ('../middlewares/validateObjectId');
+
     router.get('/', getAllPosts);
-    router.post('/', createPost);
+    router.post('/', validarBodyPost, createPost);
 
     router.get('/user/:userId', getPostsByUserId);
 
-    router.get('/:id', getPostById);
-    router.put('/:id', updatePost);
-    router.delete('/:id', deletePost);
+    router.get('/:id', validateObjectId, getPostById);
+    router.put('/:id', validateObjectId, updatePost);
+    router.delete('/:id', validateObjectId, deletePost);
 
     router.post('/:postId/tags/:tagId', addTagToPost);
     router.delete('/:postId/tags/:tagId', removeTagFromPost);

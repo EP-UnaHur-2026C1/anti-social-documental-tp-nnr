@@ -10,20 +10,20 @@ const postSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', //Revisar que se llame así el modelo
+        ref: 'Usuario', 
         required: [true, 'El autor del post es obligatorio']
     },
     images: [postImageSchema],
     tags: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tag' //Revisar que se llame así el modelo
+        ref: 'Tag' 
     }],
 
     //SISTEMA DE ANTIREACCIONES
     reactions: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'Usuario',
             required: true,
         },
         reactionType: {
@@ -36,4 +36,5 @@ const postSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Post', postSchema);
+const Post = mongoose.model('Post', postSchema);
+module.exports = Post
