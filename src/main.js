@@ -4,15 +4,16 @@ const dotenv = require("dotenv");
 const express = require("express");
 
 const conectarDb = require("./config/db");
-const postRoutes = require('./routes/post.routes');
+
 dotenv.config();
 
-const commentRoutes = require('./routes/commentRoutes');
-//const tagRoutes = require('./routes/tagToutes');
+//Importar Rutas
+const postRoutes = require('./routes/post.routes');
+const commentRoutes = require('./routes/comment.routes');
+const tagRoutes = require('./routes/tag.routes');
+const usuarioRoutes = require('./routes/usuario.routes')
 
 const notFound = require('./middlewares/notFound');
-
-const tagRoutes = require('./routes/tagToutes');
 
 
 const app = express();
@@ -21,26 +22,18 @@ const port = process.env.PORT || 3000;
 conectarDb();
 
 app.use(express.json());
-app.use('/api/posts', postRoutes);
+
 
 //Rutas
-app.use('/comment', commentRoutes);
-//app.use('/tag', tagRoutes);
+app.use('/api/comment', commentRoutes);
+app.use('/api/tag', tagRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/user', usuarioRoutes)
 
 //Middleware de error
 app.use(notFound);
 
-// Rutas
-app.use('/tag', tagRoutes);
-
-//Middleware de error
-app.use(notFound);
-
-
-app.use('/', usuarioRoutes)
-
-app.use(notFound);
 
 app.listen(port, () => {
-  console.log(`Servidor corriendo en puerto ${port}`);
+  console.log(`Servidor corriendo en: http://localhost:${port}`);
 });

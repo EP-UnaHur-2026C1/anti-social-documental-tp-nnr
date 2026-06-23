@@ -18,7 +18,10 @@ const createPost = async (req, res) => {
 
 const getAllPosts = async (req,res) => {
     try{
-        const posts = await Post.find().sort({createdAt: -1});
+        const posts = await Post.find()
+        .populate("user", "nickName nombre")
+        .populate("tags", "nombre")
+        .sort({createdAt: -1});
         res.status(200).json(posts);
     } catch(error) {
         res.status(500).json({message: 'Error al obtener los posts', error: error.message});
@@ -27,7 +30,10 @@ const getAllPosts = async (req,res) => {
 
 const getPostById = async(req,res) => {
     try {
-        const post = await Post.findById(req.params.id);
+        const post = await Post.findById(req.params.id)
+        .populate("user", "nickName nombre")
+        .populate("tags", "nombre");
+
         if (!post) return res.status(404).json({message: 'Post no encontrado'});
         res.status(200).json(post);
     } catch(error) {
@@ -38,7 +44,10 @@ const getPostById = async(req,res) => {
 const getPostsByUserId = async(req,res) => {
     try {
         const {userId} = req.params;
-        const posts = await Post.find({user: userId}).sort({createdAt: -1});
+        const posts = await Post.find({user: userId})
+        .populate("user", "nickName nombre")
+        .populate("tags", "nombre")
+        .sort({createdAt: -1});
 
         if (posts.length === 0) {
             return res.status(404).json({message: 'Este usuario no tiene publicaciones o no existe'});
