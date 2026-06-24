@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const commentCon = require('../controllers/commentController');
+const commentCon = require('../controllers/comment.controller');
 const validateObjectId = require('../middlewares/validateObjectId');
 
 const router = Router();

@@ -3,10 +3,10 @@ const { createUsuario, getUsuarios, getUsuarioId, updateUsuario, deleteUsuario }
 const validarIdUsuario = require('../middlewares/validarIdUsuario.middleware');
 const router = Router(); 
 
-router.post('/usuarios', createUsuario)
-router.get('/usuarios', getUsuarios)
-router.get('/usuarios/:id', validarIdUsuario, getUsuarioId)
-router.patch('/usuarios/:id', validarIdUsuario, updateUsuario)
-router.delete('/usuarios/:id', validarIdUsuario, deleteUsuario)
+router.post('/', createUsuario)
+router.get('/', getUsuarios)
+router.get('/:id', validarIdUsuario, getUsuarioId)
+router.patch('/:id', validarIdUsuario, updateUsuario)
+router.delete('/:id', validarIdUsuario, deleteUsuario)
 
 module.exports = router;
