@@ -20,8 +20,6 @@ const getCommentById = async (req, res) => {
   try {
 
     const { id } = req.params
-
-    const comment = req.comment
     
     comment = await Comment.findById(id)
     .populate("userId")
