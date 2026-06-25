@@ -89,7 +89,7 @@ router.post('/', commentCon.createComment);
  * @swagger
  * /api/comment/{id}:
  *   put:
- *     summary: Crear comentario
+ *     summary: Actualizar comentario
  *     tags: [Comentarios]
  *     parameters : 
  *          - in : path
