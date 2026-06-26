@@ -16,7 +16,7 @@ const {
 
 const validarBodyPost = require('../middlewares/validatePost');
 const validateObjectId = require ('../middlewares/validateObjectId');
-
+const {checkCache, deleteCache} = require('../middlewares/redis.middleware');
 /**
  * @swagger
  * /api/posts : 
@@ -108,7 +108,7 @@ router.get('/user/:userId', getPostsByUserId);
  *          404 : 
  *              description : Post no encontrado 
 */
-router.get('/:id', validateObjectId, getPostById);
+router.get('/:id', validateObjectId, checkCache, getPostById);
 
 /**
  * @swagger
@@ -142,7 +142,7 @@ router.get('/:id', validateObjectId, getPostById);
  *          404 : 
  *              description : Post no encontrado 
 */
-router.put('/:id', validateObjectId, updatePost);
+router.put('/:id', validateObjectId, deleteCache, updatePost);
 
 /**
  * @swagger
@@ -164,7 +164,7 @@ router.put('/:id', validateObjectId, updatePost);
  *          404 : 
  *              description : Post no encontrado 
 */
-router.delete('/:id', validateObjectId, deletePost);
+router.delete('/:id', validateObjectId, deleteCache, deletePost);
 
 /**
  * @swagger

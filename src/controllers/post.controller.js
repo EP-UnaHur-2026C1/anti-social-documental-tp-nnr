@@ -1,3 +1,4 @@
+const redisClient = require ('../config/redis');
 const Post = require('../models/post.model');
 
 const createPost = async (req, res) => {
@@ -36,8 +37,14 @@ const getPostById = async(req,res) => {
         .populate("tags", "nombre")
         .select('-createdAt -updatedAt -__v');
 
-        if (!post) return res.status(404).json({message: 'Post no encontrado'});
-        res.status(200).json(post);
+        if (!post) {
+           return res.status(404).json({message: 'Post no encontrado'});
+        }
+         console.log(`DEBUG: Intentando guardar en Redis la llave post:${req.params.id}`);
+        const ttl = parseInt(process.env.CACHE_TTL, 10) || 3600;
+        await redisClient.setEx(`post:${req.params.id}`,ttl, JSON.stringify(post));
+        console.log(`DEBUG: Guardado exitoso en Redis.`);    
+        return res.status(200).json(post);
     } catch(error) {
         res.status(500).json({message: 'Error de servidor (ID inválido)', error: error.message});
     }

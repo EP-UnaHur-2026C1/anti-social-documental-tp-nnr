@@ -22,3 +22,9 @@ services:
         ME_CONFIG_MONGODB_ADMINPASSWORD: 123456
         ME_CONFIG_MONGODB_URL: mongodb://admin:123456@mongodb:27017/
         ME_CONFIG_BASICAUTH: 'false'
+
+  redis:
+    image: redis:latest
+    container_name: redis-local
+    ports:
+      - 6379:6379
