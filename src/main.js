@@ -7,7 +7,7 @@ const conectarDb = require("./config/db");
 
 const swaggerUi = require('swagger-ui-express')
 const {swaggerSpec} = require('./docs/swagger')
-
+const cors= require('cors');
 dotenv.config();
 
 //Importar Rutas
@@ -25,6 +25,7 @@ const port = process.env.PORT || 3000;
 conectarDb();
 
 app.use(express.json());
+app.use(cors({origin: 'http://localhost:5173'}));
 
 
 //Rutas
