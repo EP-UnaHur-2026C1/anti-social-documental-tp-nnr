@@ -24,7 +24,6 @@ const getAllPosts = async (req,res) => {
         .populate("user", "nickName nombre")
         .populate("tags", "nombre")
         .sort({createdAt: -1})
-        .select('-createdAt -updatedAt -__v');
         res.status(200).json(posts);
     } catch(error) {
         res.status(500).json({message: 'Error al obtener los posts', error: error.message});
